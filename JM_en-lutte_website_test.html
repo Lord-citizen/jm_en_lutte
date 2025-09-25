@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JM en Lutte</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #fff;
+    background: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/69bc31e2-3945-41d5-ba14-e59efba730e0/dhxsyp3-b493a61d-b79d-400f-8108-4d4b059ba784.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82OWJjMzFlMi0zOTQ1LTQxZDUtYmExNC1lNTllZmJhNzMwZTAvZGh4c3lwMy1iNDkzYTYxZC1iNzlkLTQwMGYtODEwOC00ZDRiMDU5YmE3ODQuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.jwHBsncEPVut7yeEWykkE14W_Pqc30tbShgXgLxX35k") no-repeat center center fixed;
+    background-size: cover;
+    }
+
+    section, header, footer {
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+      margin: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+
+    header { position: sticky; top: 0; z-index: 1000; padding: 0.5rem 0; }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+      padding-inline: 0.5rem;
+    }
+
+    nav li.login-item { margin-left: auto; }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color .18s ease;
+      padding: 0.25rem 0.4rem;
+    }
+    nav a:hover,
+    nav a:focus { color: #ff4040; outline: none; }
+
+    .login-btn-link {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0.25rem 0.4rem;
+      font-family: inherit;
+    }
+    .login-btn-link:hover,
+    .login-btn-link:focus { color: #ff4040; outline: none; }
+
+    .login-btn-link:focus, nav a:focus {
+      box-shadow: 0 0 0 3px rgba(255,64,64,0.18);
+      border-radius: 4px;
+    }
+
+    section { max-width: 1000px; margin: 1.5rem auto; }
+    section h1, section h2 { margin-bottom: 0.75rem; text-align: center; }
+    section p { margin-bottom: 1rem; }
+
+    #accueil { text-align: center; }
+
+    #accueil img {
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 1.25rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      display: inline-block;
+    }
+
+    #engagements {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    #engagements article {
+      background: rgba(255,255,255,0.06);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: transform 0.18s ease;
+    }
+    #engagements article:hover { transform: translateY(-6px); }
+
+    footer { text-align: center; margin-top: 1rem; padding-bottom: 1rem; }
+ 
+    .login-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.45);
+      padding: 40px 10px;
+    }
+
+    .login-modal-content {
+      background-color: #222;
+      margin: 4% auto;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 10px;
+      padding: 22px;
+      color: #fff;
+      position: relative;
+      animation: login-animate 0.45s ease both;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+
+    .login-close {
+      position: absolute;
+      right: 14px; top: 8px;
+      color: #fff;
+      font-size: 26px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .login-close:hover, .login-close:focus { color: #ff4040; outline: none; }
+
+    .login-modal h2 { margin-bottom: 12px; text-align: left; }
+
+    .login-input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #111;
+      color: #fff;
+    }
+    .login-input::placeholder { color: #999; }
+
+    .login-submit {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+      background: #04AA6D;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .login-submit:hover { opacity: 0.95; }
+
+    @keyframes login-animate {
+      from { transform: scale(0.98); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 520px) {
+      nav ul { gap: 0.75rem; padding-inline: 0.5rem; }
+      .login-modal-content { padding: 18px; margin: 8% auto; }
+      #accueil img { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#engagements">Nos Engagements</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+
+        <li class="login-item">
+          <button
+            id="loginToggle"
+            class="login-btn-link"
+            aria-controls="loginModal"
+            aria-expanded="false"
+            aria-label="Ouvrir la fenêtre de connexion">
+            Connexion
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="accueil">
+      <h1>Bienvenue sur JM en Lutte</h1>
+      <p>
+        Nous sommes l'union de la gauche du lycée Jean Macé à Rennes. On mène des actions pour la solidarité,
+        l'égalité, les droits des élèves et plus encore — découvre tout ici.
+      </p>
+      <a href="https://ibb.co/SYQc40P"><img src="https://i.ibb.co/SYQc40P/10552.jpg" alt="10552"></a>
+    </section>
+
+    <section id="engagements">
+      <h2>Nos Engagements</h2>
+      <article>
+        <h3>Droits des étudiants</h3>
+        <p>Nous luttons pour de meilleures conditions d’étude, la justice sociale et l’égalité des chances.</p>
+      </article>
+      <article>
+        <h3>Écologie</h3>
+        <p>Actions de sensibilisation et préservation de l'environnement au lycée et dans la ville.</p>
+      </article>
+      <article>
+        <h3>Solidarité</h3>
+        <p>Soutien aux élèves vulnérables et projets communautaires.</p>
+      </article>
+    </section>
+
+    <section id="projets">
+      <h2>Nos Projets</h2>
+      <p>Voici une liste des actions que nous avons menées ainsi que des projets en cours :</p>
+      <ul>
+        <li>Le blocus du 10 Septembre</li>
+        <li>Le blocus du 18 Septembre</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contactez-nous</h2>
+      <p>Instagram : <a style="color:inherit; text-decoration:underline;">jm_en_lutte</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 JM en Lutte et son équipe de dev talentueux. Tous droits réservés.</p>
+  </footer>
+
+  <div id="loginModal" class="login-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="login-modal-content" role="document" aria-labelledby="loginTitle">
+      <button class="login-close" aria-label="Fermer la fenêtre" id="loginClose">&times;</button>
+      <h2 id="loginTitle">Connexion</h2>
+
+      <form action="/action_page.php" method="post">
+        <label for="uname" style="display:none">Nom d'utilisateur</label>
+        <input id="uname" name="uname" class="login-input" type="text" placeholder="Nom d'utilisateur" required>
+
+        <label for="psw" style="display:none">Mot de passe</label>
+        <input id="psw" name="psw" class="login-input" type="password" placeholder="Mot de passe" required>
+
+        <button type="submit" class="login-submit">Se connecter</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var loginToggle = document.getElementById('loginToggle');
+      var loginModal = document.getElementById('loginModal');
+      var loginClose = document.getElementById('loginClose');
+
+      function openModal() {
+        loginModal.style.display = 'block';
+        loginModal.setAttribute('aria-hidden', 'false');
+        loginToggle.setAttribute('aria-expanded', 'true');
+        var firstInput = loginModal.querySelector('.login-input');
+        if (firstInput) firstInput.focus();
+      }
+
+      function closeModal() {
+        loginModal.style.display = 'none';
+        loginModal.setAttribute('aria-hidden', 'true');
+        loginToggle.setAttribute('aria-expanded', 'false');
+        loginToggle.focus(); 
+      }
+
+      loginToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var opened = loginToggle.getAttribute('aria-expanded') === 'true';
+        if (opened) closeModal(); else openModal();
+      });
+
+      loginClose.addEventListener('click', function () { closeModal(); });
+
+      window.addEventListener('click', function (event) {
+        if (event.target === loginModal) closeModal();
+      });
+
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (loginModal.style.display === 'block') closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
