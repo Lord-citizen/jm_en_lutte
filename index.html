@@ -67,7 +67,12 @@
     section h1, section h2 { margin-bottom: 0.75rem; text-align: center; }
     section p { margin-bottom: 1rem; }
 
-    #accueil { text-align: center; }
+    #accueil { text-align: center; 
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      align-items: center;
+}
 
     #accueil img {
       width: 250px; height: 250px;
@@ -170,9 +175,8 @@
     }
 	
 	#communique_dl {
-		position: absolute;
-		center: 1.5rem;     /* à droite — change en left/center si tu veux */
-		display: inline-block;
+    	width: 60%;
+    	display: inline-block;
 		background: linear-gradient(180deg,#ff4040,#d93636);
 		color: #fff;
 		text-decoration: none;
@@ -361,6 +365,7 @@
   </script>
 </body>
 </html>
+
 
 
 
