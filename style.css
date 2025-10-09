@@ -169,15 +169,20 @@
     	width: 60%;
 		min-width: 300px;
     	display: inline-block;
-		background: linear-gradient(180deg,#ff4040,#d93636);
+		background-color: #d93636;
 		color: #fff;
 		text-decoration: none;
 		padding: 0.6rem 1rem;
 		border-radius: 8px;
 		font-weight: 700;
 		box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-		transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+		transition: transform .12s ease, box-shadow .12s, background .5s;
 		border: none;
 		cursor: pointer;
 		z-index: 10;
 	}
+    #communique_dl:hover{
+        transform: translateY(2px);
+        box-shadow: rgb(0, 0, 0);
+        background-color: #a32727;
+    }
